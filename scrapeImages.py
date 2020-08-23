@@ -1,7 +1,3 @@
-# Resources:
-# https://gist.github.com/genekogan/ebd77196e4bf0705db51f86431099e57
-
-print("run imports...")
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import json
@@ -10,22 +6,19 @@ import urllib3
 import argparse
 import urllib.request
 
-print("define program variables and open google images...")
-searchterm = 'calvin_klein_dresses' # will also be the name of the folder
+folderfs=r'C:\Users\name\Downloads\folder\calvin_klein_dresses' 
+searchterm = 'calvin_klein_dresses' # this goes in the search query
 url = "https://www.google.co.in/search?q="+searchterm+"&source=lnms&tbm=isch"
-# NEED TO DOWNLOAD CHROMEDRIVER, insert path to chromedriver inside parentheses in following line
-browser = webdriver.Chrome()
+browser = webdriver.Chrome() #keep the chrome webdriver in the same folder as this code
 browser.get(url)
 header={'User-Agent':"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"}
 counter = 0
 succounter = 0
 
-print("start scrolling to generate more images on the page...")
-# 500 time we scroll down by 10000 in order to generate more images on the website
-for _ in range(500):
+#Click 'show more results' in the opened browser to get more images. Scrolls automatically only till then
+for _ in range(200):
     browser.execute_script("window.scrollBy(0,10000)")
 
-print("start scraping ...")
 for x in browser.find_elements_by_xpath('//img[contains(@class,"rg_i Q4LuWd")]'):
     counter = counter + 1
     print("Total Count:", counter)
@@ -36,7 +29,8 @@ for x in browser.find_elements_by_xpath('//img[contains(@class,"rg_i Q4LuWd")]')
     new_filename = "image"+str(counter)+".jpg"
 
     try:
-        path = r'C:\Users\Asrita\Downloads\shein_dresses\calvin_klein_dresses'
+        
+        path =  folderfs
         path += new_filename
         urllib.request.urlretrieve(img, path)
         succounter += 1
