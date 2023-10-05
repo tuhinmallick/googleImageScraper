@@ -6,9 +6,9 @@ import urllib3
 import argparse
 import urllib.request
 
-folderfs=r'C:\Users\name\Downloads\folder\calvin_klein_dresses' 
+folderfs=r'C:\Users\name\Downloads\folder\calvin_klein_dresses'
 searchterm = 'calvin_klein_dresses' # this goes in the search query
-url = "https://www.google.co.in/search?q="+searchterm+"&source=lnms&tbm=isch"
+url = f"https://www.google.co.in/search?q={searchterm}&source=lnms&tbm=isch"
 browser = webdriver.Chrome() #keep the chrome webdriver in the same folder as this code
 browser.get(url)
 header={'User-Agent':"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"}
@@ -26,10 +26,10 @@ for x in browser.find_elements_by_xpath('//img[contains(@class,"rg_i Q4LuWd")]')
     print("URL:", x.get_attribute('src'))
 
     img = x.get_attribute('src')
-    new_filename = "image"+str(counter)+".jpg"
+    new_filename = f"image{str(counter)}.jpg"
 
     try:
-        
+
         path =  folderfs
         path += new_filename
         urllib.request.urlretrieve(img, path)
